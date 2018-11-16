@@ -6,5 +6,6 @@ apt-get --yes install npm # install npm
 npm install -g caver-js
 
 apt-get --yes install arduino
-
+cd arduino-py
+sudo python setup.py install
 exit 0
