@@ -1,6 +1,7 @@
+import sys
 from klaytn import *
-
-klay = Klaytn('http://ubuntu.hanukoon.com:8851')
+from arduinoupload import *
+klay = Klaytn('http://ubuntu.hanukoon.com:8551')
 
 wallet = klay.newAccount('_labc') # create newAccount with '_labc' as passphrase
 print(wallet)
