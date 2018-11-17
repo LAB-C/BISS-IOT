@@ -23,7 +23,7 @@
 }
 ```
 
-- Register to server(POST to `/upload`)
+- Register to server(POST to `/register`)
 
 ## 2. Check server API with interval
 
