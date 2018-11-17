@@ -1,0 +1,22 @@
+{
+  "name": "biss-blockchain",
+  "version": "1.0.0",
+  "description": "`0x4543553d76289473c6d38fadfd4f13541bf43c19` - `_labc`",
+  "main": "test.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/JunhoYeo/biss-blockchain.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/JunhoYeo/biss-blockchain/issues"
+  },
+  "homepage": "https://gitlab.com/JunhoYeo/biss-blockchain#readme",
+  "dependencies": {
+    "caver-js": "0.0.1-b"
+  }
+}
