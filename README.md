@@ -3,7 +3,7 @@
 ## Usage
 
 ### 0. Run install.sh
-    sudo ./install.sh 
+	sudo ./install.sh 
 install.sh will install caver-js,nodejs,arduino,arduino-sketch 
 
 ### 1. `klaytn.py`를 쓰자~!
