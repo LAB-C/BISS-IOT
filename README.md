@@ -6,7 +6,7 @@
 ## Usage
 
 ### 0. Run install.sh
-	sudo ./install.sh 
+	chmod +x install.sh && sudo ./install.sh
 - Install dependencies
 
 >caver-js,nodejs,arduino,arduino-sketch 
