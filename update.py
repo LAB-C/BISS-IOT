@@ -1,3 +1,4 @@
+from client.klaytn import Klaytn
 from client.utils import *
 import json, requests
 
@@ -13,4 +14,13 @@ if not res: # not updated
     exit(0)
 
 # updated
-print(res)
+klay = Klaytn(info['klaytn_node'])
+
+# get file key
+file_id = res['file_id']
+txhash = res['txHash']
+key = klay.getInputData(txhash)
+
+# get public URL
+url = get_realfirmwareurl(file_id, key, info)
+print(url)

@@ -35,13 +35,14 @@
 ## 2. Check server API with interval
 
 - Send device wallet in `/api/check/update`
+- (If update is available) Get `txHash`, `file_id`
 
-## 3. If `Update available`
-pass
+## 3. public URL을 구하기
 
-## 4. If U want run background?
-	sudo ./start.sh
---
+- Get `key`
+- Auth to server
+- Get public URL
+
 # More information! 
 ~~(Too Much Infromation maybe?)~~
 

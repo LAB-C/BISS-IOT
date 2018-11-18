@@ -62,14 +62,17 @@ def check_update(info):
     res = json.loads(r.text)
     return res if res['update'] else False
 
-def get_realfirmwareurl():
-    block_get()
-    jsonurl = request.post(server_url + '/api/download' + file_id, json ={'key': block_key})
-    realurl = json.loads(jsonurl.text)
+def get_realfirmwareurl(file_id, key, info):
+    res = requests.post(info['firmware_server'] + '/api/download/' + str(file_id), json ={'key': key})
+    logging.info(res.text)
+    data = json.loads(res.text)
+    try:
+        return data['result']['url']
+    except:
+        return False
 
 def upload_device():
     get_realfirmwareurl()
     os.system('wget' + realurl)
     os.system('arduino-sketch -u ' + file_id)
     os.system('rm -rf ' + file_id)
-
