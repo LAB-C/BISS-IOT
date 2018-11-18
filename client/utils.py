@@ -34,15 +34,15 @@ def report_info(info):
     server_url = info['firmware_server']
 
     # 1. Check if same wallet exists in server
-    r = requests.post(server_url + '/check/exist', data={'wallet': info['device']['wallet']})
-    logging.debug('URL: ' + server_url + '/check/exist')
+    r = requests.post(server_url + '/api/check/exist', json={'wallet': info['device']['wallet']})
+    logging.debug('URL: ' + server_url + '/api/check/exist')
     logging.debug('response: ' + r.text)
 
     if json.loads(r.text)['exist'] == False:
         # 2. Report device information
 
-        r = requests.post(server_url + '/register', data=info['device'])
-        logging.debug('URL: ' + server_url + '/register')
+        r = requests.post(server_url + '/api/register', json=info['device'])
+        logging.debug('URL: ' + server_url + '/api/register')
         logging.debug('response: ' + r.text)
 
         if 'Success' in r.text:
@@ -54,9 +54,10 @@ def check_update(info):
     wallet = info['device']['wallet']
     server_url = info['firmware_server']
 
-    r = requests.post(server_url + '/check/update', data={'wallet': wallet})
-    logging.debug('URL: ' + server_url + '/check/update')
+    r = requests.post(server_url + '/api/check/update', json={'wallet': wallet})
+    logging.debug('URL: ' + server_url + '/api/check/update')
     logging.debug('response: ' + r.text)
-    
-    return True if json.loads(r.text)['update'] else False
+
+    res = json.loads(r.text)
+    return res if res['update'] else False
     
