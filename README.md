@@ -30,11 +30,11 @@
 }
 ```
 
-- Register to server(POST to `/register`)
+- Register to server(POST json to `/api/register`)
 
 ## 2. Check server API with interval
 
-- Send device wallet in `/check/update`
+- Send device wallet in `/api/check/update`
 
 ## 3. If `Update available`
 pass
