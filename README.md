@@ -6,7 +6,7 @@
 ## Usage
 
 ### 0. Run install.sh
-	sudo ./install.sh 
+	chmod +x install.sh && sudo ./install.sh
 - Install dependencies
 
 >caver-js,nodejs,arduino,arduino-sketch 
@@ -25,8 +25,8 @@
         "name": "somedevice1",
         "wallet": "0x75a59b94889a05c03c66c3c84e9d2f8308ca4abd"
     },
-    "klaytn-node": "http://ubuntu.hanukoon.com:8551/",
-    "firmware-server": "http://ubuntu.hanukoon.com:5000/"
+    "klaytn-node": "http://Serveraddress:8551/",
+    "firmware-server": "http://Serveraddress:5000/"
 }
 ```
 
