@@ -1,6 +1,6 @@
 
 from client.klaytn import Klaytn
-import logging, requests, json
+import logging, requests, json, hashlib
 
 def strip_url(_url):
     return _url[:-1] if _url.endswith('/') else _url
@@ -70,6 +70,15 @@ def get_realfirmwareurl(file_id, key, info):
         return data['result']['url']
     except:
         return False
+
+def hash_file(filepath):
+    md5_hash = hashlib.md5()
+    with open(filepath, 'rb') as f:
+        buf = f.read(65536)
+        while len(buf) > 0:
+            md5_hash.update(buf)
+            buf = f.read(65536)
+    return md5_hash.hexdigest()
 
 def upload_device():
     get_realfirmwareurl()
