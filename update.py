@@ -46,7 +46,17 @@ try:
     print(data)
     if data['equal']:
         print('[*] Success: File Equal!')
+        
+        # upload
+        if get_ext('./firms/' + file_name) == '.ino':
+            print('[*] Success: Firmware file is .ino file!')
+            upload_device('./firms/' + file_name)
+        
+        else:
+            print('[*] Error: Firmware file is NOT .ino file!')
     else:
-        print('[*] Error: File is Different!')        
+        print('[*] Error: File is Different!')  
 except:
     pass
+
+print('[*] Finish')

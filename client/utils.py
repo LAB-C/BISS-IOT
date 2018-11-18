@@ -1,6 +1,6 @@
 
 from client.klaytn import Klaytn
-import logging, requests, json, hashlib
+import logging, requests, json, hashlib, os.path
 
 def strip_url(_url):
     return _url[:-1] if _url.endswith('/') else _url
@@ -80,8 +80,10 @@ def hash_file(filepath):
             buf = f.read(65536)
     return md5_hash.hexdigest()
 
-def upload_device():
-    get_realfirmwareurl()
-    os.system('wget' + realurl)
-    os.system('arduino-sketch -u ' + file_id)
-    os.system('rm -rf ' + file_id)
+def get_ext(filepath):
+    _, ext = os.path.splitext(filepath)
+    return ext
+
+def upload_device(filepath):
+    os.system('arduino-sketch -u ' + filepath)
+    os.system('rm -rf ' + filepath)
