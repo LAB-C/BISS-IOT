@@ -1,7 +1,7 @@
 #!/bin/bash
 # install.sh for client(rpi)
 apt-get --yes install python3
-apt-get --yes install node # install node 
+apt-get --yes install nodejs # install node.js
 apt-get --yes install npm # install npm
 
 npm install -g caver-js
