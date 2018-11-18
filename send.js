@@ -1,11 +1,15 @@
+const info = require('./info.json');
+
 const args = process.argv;
 const wallet = args[2];
 const data = args[3];
 
 var Caver = require('caver-js');
-var caver = new Caver('http://ubuntu.hanukoon.com:8551');
+var caver = new Caver(info.klaytn_node);
+
 var Transmission = require('./blockchain/build/contracts/Transmission.json');
 var Transmission = new caver.klay.Contract(Transmission.abi, '0x20c0b6bc23bfcbe9dad09221f90365f740f779c9');
+
 Transmission.methods._save(data).send({from: wallet})
 .on('receipt', function(receipt) {
     console.log(receipt.transactionHash);

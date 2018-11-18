@@ -16,8 +16,8 @@ def make_info():
             'name': input('[*] Input device name: '),
             'wallet': wallet
         },
-        'klaytn-node': input('[*] Input Klaytn node URL: '),
-        'firmware-server': url
+        'klaytn_node': input('[*] Input Klaytn node URL: '),
+        'firmware_server': url
     }
     logging.debug(info)
     klay.unlockAccount(wallet, '_labc', 30000)
@@ -37,6 +37,7 @@ def report_info(info):
         logging.debug('URL: ' + url + '/register')
         logging.debug('response: ' + r.text)
         if 'Success' in r.text:
+            print('[*] Register success')
             return True
     return False
 
@@ -54,3 +55,6 @@ else:
         logging.debug('info.json: parsing error -> calling make_info()')
         info = make_info()
         report_info(info)
+
+print('[*] Finish')
+exit(0)
