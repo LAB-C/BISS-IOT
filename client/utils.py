@@ -32,16 +32,31 @@ def make_info():
 
 def report_info(info):
     server_url = info['firmware_server']
+
     # 1. Check if same wallet exists in server
     r = requests.post(server_url + '/check/exist', data={'wallet': info['device']['wallet']})
     logging.debug('URL: ' + server_url + '/check/exist')
     logging.debug('response: ' + r.text)
-    if json.loads(r.text)['message'] == False: # does not exist(new)
+
+    if json.loads(r.text)['exist'] == False:
         # 2. Report device information
+
         r = requests.post(server_url + '/register', data=info['device'])
         logging.debug('URL: ' + server_url + '/register')
         logging.debug('response: ' + r.text)
+
         if 'Success' in r.text:
             print('[*] Register success')
             return True
     return False
+
+def check_update(info):
+    wallet = info['device']['wallet']
+    server_url = info['firmware_server']
+
+    r = requests.post(server_url + '/check/update', data={'wallet': wallet})
+    logging.debug('URL: ' + server_url + '/check/update')
+    logging.debug('response: ' + r.text)
+    
+    return True if json.loads(r.text)['update'] else False
+    
