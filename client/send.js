@@ -1,4 +1,4 @@
-const info = require('./info.json');
+const info = require('./../info.json');
 
 const args = process.argv;
 const wallet = args[2];
