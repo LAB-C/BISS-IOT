@@ -8,9 +8,7 @@ npm install -g caver-js
 
 apt-get --yes install arduino
 pip install arduino-sketch
-sudo python setup.py install
 
-cd ..
 python3 setting.py
 
 exit 0
