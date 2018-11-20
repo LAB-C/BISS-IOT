@@ -36,16 +36,12 @@ try:
     # get file checksum
     file_hash = hash_file('./firms/' + file_name)
 
-    # check hash(reporting)
-    res = requests.post(info['firmware_server'] + '/api/check/hash/' + str(file_id), json={
-        'hash': file_hash, 
-        'wallet': info['device']['wallet']
-    })
-    print(res.text)
-    data = json.loads(res.text)
-    print(data)
-    if data['equal']:
-        print('[*] Success: File Equal!')
+    # check hash in blockchain
+    output = subprocess.Popen(['node', 'firmware_server/send.js', 'hash', file_id, file_hash], stdout=subprocess.PIPE ).communicate()[0]
+    result = json.loads(output.strip().decode())['result']
+
+    if result:
+        print('[*] Success: File Equal! (local-blockchain)')
         
         # upload
         if get_ext('./firms/' + file_name) == '.ino':
@@ -55,7 +51,7 @@ try:
         else:
             print('[*] Error: Firmware file is NOT .ino file!')
     else:
-        print('[*] Error: File is Different!')  
+        print('[*] Error: File is Different! (local-blockchain)')  
 except:
     pass
 
