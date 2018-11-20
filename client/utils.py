@@ -1,4 +1,3 @@
-
 from client.klaytn import Klaytn
 import logging, requests, json, hashlib, os.path
 
@@ -11,18 +10,17 @@ def make_info():
     klay = Klaytn(klay_url)
     logging.debug('Klaytn node URL: ' + klay_url)
 
-    # firmware server
-    server_url = strip_url(input('[*] Input Firmware server URL: '))
-
     wallet = klay.newAccount('_labc')
     logging.debug('New Wallet: ' + wallet)
     info = {
         'device': {
             'name': input('[*] Input device name: '),
-            'wallet': wallet
+            'wallet': wallet,
+            'desc': input('[*] Input device description: ')
         },
         'klaytn_node': klay_url,
-        'firmware_server': server_url
+        'firmware_server': strip_url(input('[*] Input Firmware server URL: ')),
+        'data_server': strip_url(input('[*] Input Data server URL: '))
     }
     logging.debug(info)
     klay.unlockAccount(wallet, '_labc', 30000)
@@ -32,6 +30,7 @@ def make_info():
     return info
 
 def report_info(info):
+    # [*] REPORT to firmware_server
     server_url = info['firmware_server']
 
     # 1. Check if same wallet exists in server
@@ -40,6 +39,7 @@ def report_info(info):
     logging.debug('response: ' + r.text)
 
     if json.loads(r.text)['exist'] == False:
+        logging.debug('Info not in Firmware Server')
         # 2. Report device information
 
         r = requests.post(server_url + '/api/register', json=info['device'])
@@ -47,8 +47,33 @@ def report_info(info):
         logging.debug('response: ' + r.text)
 
         if 'Success' in r.text:
-            print('[*] Register success')
-            return True
+            print('[*] Firmware Server Register success')
+        else:
+            print('[*] Firmware Server Register failed')
+
+    # [*] REPORT to data_server
+    server_url = info['data_server']
+
+    # 1. Check duplicate
+    r = requests.get(server_url + '/api/iot/' + info['device']['wallet'])
+    logging.debug('URL: ' + server_url + '/api/iot/' + info['device']['wallet'])
+    logging.debug('response: ' + r.text)
+
+    if not json.loads(r.text)['data']: # not in server
+        logging.debug('Info not in Data Server')
+        r = requests.post(server_url + '/api/iot/regist', json={
+            'uuid': info['device']['wallet'], # wallet
+            'key': info['device']['wallet'], # wallet
+            'name': info['device']['name'],
+            'desc': info['device']['desc']
+        })
+        logging.debug('URL: ' + server_url + '/api/iot/regist')
+        logging.debug('response: ' + r.text)
+        if json.loads(r.text)['data']:
+            print('[*] Data Server Register success')   
+        else:         
+            print('[*] Data Server Register failed')        
+
     return False
 
 def check_update(info):

@@ -9,15 +9,14 @@ if not os.path.isfile('./info.json'): # 존재 x
     info = make_info()
     report_info(info)
 else:
-    try:
+    # try:
         with open('./info.json', 'r') as f:
             logging.debug('info.json: file found')
             info = json.load(f)
         report_info(info)
-    except:
-        logging.debug('info.json: parsing error -> calling make_info()')
-        info = make_info()
-        report_info(info)
+    # except:
+    #     logging.debug('info.json: parsing error -> calling make_info()')
+    #     info = make_info()
+    #     report_info(info)
 
 print('[*] Finish')
-exit(0)
