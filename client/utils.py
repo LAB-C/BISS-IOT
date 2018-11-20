@@ -47,19 +47,20 @@ def report_info(info):
         logging.debug('response: ' + r.text)
 
         if 'Success' in r.text:
-            print('[*] Firmware Server Register success')
+            print('[*] Firmware-Server: Register success')
         else:
-            print('[*] Firmware Server Register failed')
+            print('[*] Firmware-Server: Register failed')
 
     # [*] REPORT to data_server
     server_url = info['data_server']
 
-    # 1. Check duplicate
-    r = requests.get(server_url + '/api/iot/' + info['device']['wallet'])
-    logging.debug('URL: ' + server_url + '/api/iot/' + info['device']['wallet'])
+    # 1. Check duplicate -> data server iot device
+    r = requests.get(server_url + '/api/iot/regist/' + info['device']['wallet'])
+    logging.debug('URL: ' + server_url + '/api/iot/regist/' + info['device']['wallet'])
     logging.debug('response: ' + r.text)
 
     if not json.loads(r.text)['data']: # not in server
+        # 2. register iot device
         logging.debug('Info not in Data Server')
         r = requests.post(server_url + '/api/iot/regist', json={
             'uuid': info['device']['wallet'], # wallet
@@ -70,10 +71,28 @@ def report_info(info):
         logging.debug('URL: ' + server_url + '/api/iot/regist')
         logging.debug('response: ' + r.text)
         if json.loads(r.text)['data']:
-            print('[*] Data Server Register success')   
+            print('[*] Data-Server: Device Register success')   
         else:         
-            print('[*] Data Server Register failed')        
+            print('[*] Data-Server: Device Register failed')        
 
+    # 3. Check duplicate -> data server wallet
+    r = requests.get(server_url + '/api/iot/' + info['device']['wallet'])
+    logging.debug('URL: ' + server_url + '/api/iot/' + info['device']['wallet'])
+    logging.debug('response: ' + r.text)
+
+    if not json.loads(r.text)['data']: # not in server
+        # 4. register wallet
+        logging.debug('Info not in Data Server')
+        r = requests.post(server_url + '/api/iot', json={
+            'iot': info['device']['wallet'], # wallet
+        })
+        logging.debug('URL: ' + server_url + '/api/iot')
+        logging.debug('response: ' + r.text)
+        if json.loads(r.text)['data']:
+            print('[*] Data-Server: Wallet Register success')   
+        else:         
+            print('[*] Data-Server: Wallet Register failed')
+            
     return False
 
 def check_update(info):
