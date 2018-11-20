@@ -1,0 +1,3 @@
+[submodule "client/blockchain"]
+	path = client/blockchain
+	url = https://github.com/LAB-C/BISS-blockchain
