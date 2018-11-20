@@ -28,7 +28,6 @@ class Klaytn:
     def getInputData(self, txhash):
         url = 'https://apiscope.klaytn.com/api/transaction/' + txhash
         res = json.loads(requests.get(url).text)
-        print(res)
-        if res['status'] == 'FAIL': 
+        if res['status'] == 'FAIL':
             return False
-        return bytes.fromhex(res['result']['input'][2:]).replace(b'\x00', b'').replace(b'6F\xd0! \x1e', b'').decode()
+        return bytes.fromhex(res['result']['input'][2:]).replace(b'\x00', b'').replace(b'\x1b\xc2t\x16\x11@\x1e', b'').decode()
