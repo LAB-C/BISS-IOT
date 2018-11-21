@@ -7,8 +7,7 @@ apt-get --yes install npm # install npm
 
 npm install caver-js #if it is not working, how about try -g option?
 
-apt-get --yes install arduino
-pip install arduino-sketch
+pip install ino
 
 python3 setting.py
 
