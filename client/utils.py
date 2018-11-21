@@ -86,5 +86,6 @@ def get_ext(filepath):
 
 def upload_device():
     os.chdir('./firms/src')
+    os.system('ino init')
     os.system('ino build')
     os.system('ino upload')
