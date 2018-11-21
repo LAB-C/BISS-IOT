@@ -30,10 +30,10 @@ file_name = file_url[file_url.rfind("/")+1:]
 print(file_name)
 
 # download file
-urllib.request.urlretrieve(file_url, './firms/' + file_name)
+urllib.request.urlretrieve(file_url, './firms/src/' + file_name)
 
 # get file checksum
-file_hash = hash_file('./firms/' + file_name)
+file_hash = hash_file('./firms/src/' + file_name)
 
 # check hash in blockchain
 output = subprocess.Popen(['node', 'client/send.js', 'hash', str(file_id), file_hash], stdout=subprocess.PIPE ).communicate()[0]
@@ -55,9 +55,9 @@ try:
             print('[*] Success: File Equal! (local-server)')
         
             # upload to arduino
-            if get_ext('./firms/' + file_name) == '.ino':
+            if get_ext('./firms/src/' + file_name) == '.ino':
                 print('[*] Success: Firmware file is .ino file!')
-                upload_device('./firms/' + file_name)
+                upload_device('./firms/src/' + file_name)
             
             else:
                 print('[*] Error: Firmware file is NOT .ino file!')
