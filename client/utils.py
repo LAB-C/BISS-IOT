@@ -84,6 +84,7 @@ def get_ext(filepath):
     _, ext = os.path.splitext(filepath)
     return ext
 
-def upload_device(filepath):
-    os.system('arduino-sketch -u ' + filepath)
-    os.system('rm -rf ' + filepath)
+def upload_device():
+    os.chdir('./firms/src')
+    os.system('ino build')
+    os.system('ino upload')
