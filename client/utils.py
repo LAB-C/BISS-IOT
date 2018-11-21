@@ -51,50 +51,6 @@ def report_info(info):
         else:
             print('[*] Firmware-Server: Register failed')
 
-    # [*] REPORT to data_server
-    server_url = info['data_server']
-
-    # 1. Check duplicate -> data server iot device
-    r = requests.get(server_url + '/api/iot/regist/' + info['device']['wallet'])
-    logging.debug('URL: ' + server_url + '/api/iot/regist/' + info['device']['wallet'])
-    logging.debug('response: ' + r.text)
-
-    if not json.loads(r.text)['data']: # not in server
-        # 2. register iot device
-        logging.debug('Info not in Data Server')
-        r = requests.post(server_url + '/api/iot/regist', json={
-            'uuid': info['device']['wallet'], # wallet
-            'key': info['device']['wallet'], # wallet
-            'name': info['device']['name'],
-            'desc': info['device']['desc']
-        })
-        logging.debug('URL: ' + server_url + '/api/iot/regist')
-        logging.debug('response: ' + r.text)
-        if json.loads(r.text)['data']:
-            print('[*] Data-Server: Device Register success')   
-        else:         
-            print('[*] Data-Server: Device Register failed')        
-
-    # 3. Check duplicate -> data server wallet
-    r = requests.get(server_url + '/api/iot/' + info['device']['wallet'])
-    logging.debug('URL: ' + server_url + '/api/iot/' + info['device']['wallet'])
-    logging.debug('response: ' + r.text)
-
-    if not json.loads(r.text)['data']: # not in server
-        # 4. register wallet
-        logging.debug('Info not in Data Server')
-        r = requests.post(server_url + '/api/iot', json={
-            'iot': info['device']['wallet'], # wallet
-        })
-        logging.debug('URL: ' + server_url + '/api/iot')
-        logging.debug('response: ' + r.text)
-        if json.loads(r.text)['data']:
-            print('[*] Data-Server: Wallet Register success')   
-        else:         
-            print('[*] Data-Server: Wallet Register failed')
-            
-    return False
-
 def check_update(info):
     wallet = info['device']['wallet']
     server_url = info['firmware_server']
@@ -128,6 +84,7 @@ def get_ext(filepath):
     _, ext = os.path.splitext(filepath)
     return ext
 
-def upload_device(filepath):
-    os.system('arduino-sketch -u ' + filepath)
-    os.system('rm -rf ' + filepath)
+def upload_device():
+    os.chdir('./firms/src')
+    os.system('ino build')
+    os.system('ino upload')

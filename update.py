@@ -57,7 +57,7 @@ try:
             # upload to arduino
             if get_ext('./firms/src/' + file_name) == '.ino':
                 print('[*] Success: Firmware file is .ino file!')
-                upload_device('./firms/src/' + file_name)
+                upload_device()
             
             else:
                 print('[*] Error: Firmware file is NOT .ino file!')
