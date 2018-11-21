@@ -5,7 +5,7 @@
 
 ## Usage
 
-### 0. Run install.sh
+### 1. Run install.sh
 	chmod +x install.sh && sudo ./install.sh
 - Install dependencies
 
