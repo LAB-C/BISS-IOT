@@ -1,3 +1,6 @@
 [submodule "client/blockchain"]
 	path = client/blockchain
 	url = https://github.com/LAB-C/BISS-blockchain
+[submodule "i2c-1602-lib"]
+	path = i2c-1602-lib
+	url = https://github.com/fdebrabander/Arduino-LiquidCrystal-I2C-library

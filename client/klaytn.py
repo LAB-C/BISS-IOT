@@ -30,4 +30,5 @@ class Klaytn:
         res = json.loads(requests.get(url).text)
         if res['status'] == 'FAIL':
             return False
+        print(bytes.fromhex(res['result']['input'][2:]).replace(b'\x00', b''))
         return bytes.fromhex(res['result']['input'][2:]).replace(b'\x00', b'').replace(b'\x1b\xc2t\x16\x11@\x1e', b'').decode()
